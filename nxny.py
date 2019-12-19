@@ -25,9 +25,9 @@ def download(url):
     html = etree.HTML(response)
     for detailUrl in html.xpath("//a[contains(@title,'国泰君安')and contains(@title,'" + timeStr + "')]/@href"):
         download_url_deal(detailUrl)
-    for detailUrl in html.xpath("//a[contains(@title,'浙商证券')and contains(@title,'" + timeStr + "')]/@href"):
-        download_url_deal(detailUrl)
     for detailUrl in html.xpath("//a[contains(@title,'中信证券')and contains(@title,'" + timeStr + "')]/@href"):
+        download_url_deal(detailUrl)
+    for detailUrl in html.xpath("//a[contains(@title,'申万宏源')and contains(@title,'" + timeStr + "')]/@href"):
         download_url_deal(detailUrl)
 
 
@@ -36,8 +36,8 @@ def download_url_deal(url):
     url=urljoin('http://www.nxny.com', url)
     response = http.request('Get', urljoin('http://www.nxny.com', url), headers=headers).data.decode()
     html = etree.HTML(response)
-    for downloadUrl in html.xpath('//tr[5]/td/a/@href'):
-        fileName = html.xpath('//tr[1]/td[2]/strong/text()')[0]
+    for downloadUrl in html.xpath('//tr[4]/td/a/@href'):
+        fileName = html.xpath('//*[@id="main"]/div[1]/strong/text()')[0]
         filePath = r'C:\Users\miaoke\Desktop\self\晨会'+'\\'+timeStr+'\\'+fileName+'.pdf'
         file_Deal(downloadUrl, filePath)
 
